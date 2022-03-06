@@ -31,7 +31,8 @@ $.ajax({
 
 `url:"http://api.openweathermap.org/data/2.5/weatherq=Seoul&appid=709156e8033c3ec6ce56b13372f7a1bd"`
 
-![Untitled](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/25844755-56cc-4614-8ea2-be124696e62d/Untitled.png)
+![Untitled 1](https://user-images.githubusercontent.com/95729738/156915074-4f2683af-e9c9-4c3d-b612-38f39cac557a.png)
+
 
 ### 3. 가져올 정보 추출
 
@@ -43,7 +44,8 @@ response에 정보들이 담기므로 response를 잘 제어하면 된다.
 
 `response["weather]` (O)
 
-![Untitled](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/1df2bfc3-11ee-4869-9b33-072e1032ad53/Untitled.png)
+![Untitled](https://user-images.githubusercontent.com/95729738/156915078-b0086f46-4d88-405a-8b59-31c794119f2c.png)
+
 
 ---
 
