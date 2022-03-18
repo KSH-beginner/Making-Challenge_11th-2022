@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+
+    <!-- Bootstrap CSS -->
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+      integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+      crossorigin="anonymous"
+    />
+
+    <!-- 구글 폰트 ---------------->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Gothic+A1:wght@400;600;700;800&family=Jua&family=Noto+Sans+KR:wght@400;500;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Local CSS -->
+    <link rel="stylesheet" href="../static/css/mypage.css" />
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+      integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+      integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+      crossorigin="anonymous"
+    ></script>
+
+    <!-- bootstrap fas icon을 사용하기 위해 필요 -->
+    <script
+      src="https://kit.fontawesome.com/a73607bda8.js"
+      crossorigin="anonymous"
+    ></script>
+    <link rel="shortcut icon" href="../static/images/logo/favicon.png" />
+
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap-theme.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
+    />
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Gothic+A1:wght@400;600;700;800&family=Jua&family=Noto+Sans+KR:wght@400;500;700&display=swap"
+      rel="stylesheet"
+    />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Mu:ther" />
+    <meta
+      property="og:description"
+      content="Mu:ther에서는 사용자의 위치에 따른 날씨를 파악하고, 오늘의 날씨에 어울리는 노래를 사용자에게 추천합니다."
+    />
+    <meta property="og:image" content="../static/images/og_img.png" />
+    <meta property="og:image:width" content="800" />
+    <meta property="og:image:height" content="400" />
+    <meta property="og:image:alt" content="Mu:ther 대표이미지" />
+    <meta property="og:url" content="사이트 URL" />
+    <title>Mypage - {{g.title}}</title>
+    <style>
+      @font-face {
+        font-family: "NEXON Lv1 Gothic OTF";
+        src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-04@2.1/NEXON Lv1 Gothic OTF.woff")
+          format("woff");
+        font-weight: normal;
+        font-style: normal;
+      }
+      @font-face {
+        font-family: "GmarketSansMedium";
+        src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/GmarketSansMedium.woff")
+          format("woff");
+        font-weight: normal;
+        font-style: normal;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="container">
+      <header>
+        <section class="header">
+          <div class="top">
+            <div class="top_left">
+              <a href="/main"><i class="fas fa-arrow-circle-left"></i></a>
+            </div>
+            <div class="top_corner">
+              <div class="city_temp_wt">
+                <p>
+                  {{current_city}} | {{current_temp}}℃ | {{current_weather}}
+                </p>
+              </div>
+            </div>
+          </div>
+          <h1><i class="fas fa-id-card"></i> My page</h1>
+          <div class="my_txt">
+            <p><span>{{session.username}}</span>님의 좋아요 리스트 입니다.</p>
+          </div>
+        </section>
+      </header>
+      <main>
+        <div>
+          <ul class="nav nav-tabs">
+            <li class="active"><a href="#sunny" data-toggle="tab">Sunny</a></li>
+            <li><a href="#cloudy" data-toggle="tab">Cloudy</a></li>
+            <li><a href="#rainy" data-toggle="tab">Rainy</a></li>
+            <li><a href="#snowy" data-toggle="tab">Snowy</a></li>
+          </ul>
+
+          <div class="tab-content">
+            <!------------- 맑음 탭 ---------------->
+            <div class="tab-pane fade in active" id="sunny">
+              <table class="table table-hover" id="search_table">
+                <thead>
+                  <tr>
+                    <th id="th_first" scope="col">앨범</th>
+                    <th id="th_second" scope="col">제목</th>
+                    <th id="th_third" scope="col">아티스트</th>
+                    <th id="th_fourth" scope="col">미리듣기</th>
+                    <th id="th_fifth" scope="col">삭제</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {% for track in tracks.Sunny %}
+                  <tr data-track_id="{{track.track_id}}" data-weather="Sunny">
+                    <td id="table_td">
+                      <img
+                        class="my_img"
+                        src="{{ track.cover_image }}"
+                        art="albumart"
+                      />
+                    </td>
+                    <td class="title" id="table_title">{{track.title}}</td>
+                    <td class="artist" id="table_artist">{{track.artist}}</td>
+                    <td id="table_play">
+                      <audio controls class="mypage_player">
+                        <source src="{{track.preview_url}}" type="audio/mpeg" />
+                      </audio>
+                    </td>
+                    <td id="table_delete">
+                      <div class="btn-group">
+                        <button
+                          type="button"
+                          id="delete"
+                          class="btn btn-danger dropdown-toggle"
+                          data-toggle="dropdown"
+                          aria-haspopup="true"
+                          aria-expanded="false"
+                        >
+                          삭제
+                        </button>
+                        <div class="dropdown-menu">
+                          <a class="dropdown-item">확인</a>
+                        </div>
+                      </div>
+                    </td>
+                  </tr>
+                  {% endfor %}
+                </tbody>
+              </table>
+            </div>
+
+            <! ------------ 흐림 탭 ---------------->
+            <div class="tab-pane fade" id="cloudy">
+              <table class="table table-hover" id="search_table">
+                <thead>
+                  <tr>
+                    <th id="th_first" scope="col">앨범</th>
+                    <th id="th_second" scope="col">제목</th>
+                    <th id="th_third" scope="col">아티스트</th>
+                    <th id="th_fourth" scope="col">미리듣기</th>
+                    <th id="th_fifth" scope="col">삭제</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {% for track in tracks.Cloudy %}
+                  <tr data-track_id="{{track.track_id}}" data-weather="Cloudy">
+                    <td id="table_td">
+                      <img
+                        class="my_img"
+                        src="{{track.cover_image}}"
+                        art="albumart"
+                      />
+                    </td>
+                    <td class="title" id="table_td">{{track.title}}</td>
+                    <td class="artist" id="table_td">{{track.artist}}</td>
+                    <td id="table_td">
+                      <audio controls>
+                        <source src="{{track.preview_url}}" type="audio/mpeg" />
+                      </audio>
+                    </td>
+                    <td id="table_td">
+                      <div class="btn-group">
+                        <button
+                          type="button"
+                          class="btn btn-danger dropdown-toggle"
+                          data-toggle="dropdown"
+                          aria-haspopup="true"
+                          aria-expanded="false"
+                        >
+                          삭제
+                        </button>
+                        <div class="dropdown-menu">
+                          <a class="dropdown-item">확인</a>
+                        </div>
+                      </div>
+                    </td>
+                  </tr>
+                  {% endfor %}
+                </tbody>
+              </table>
+            </div>
+
+            <! -------------- 비 탭 ----------------->
+            <div class="tab-pane fade" id="rainy">
+              <table class="table table-hover" id="search_table">
+                <thead>
+                  <tr>
+                    <th id="th_first" scope="col">앨범</th>
+                    <th id="th_second" scope="col">제목</th>
+                    <th id="th_third" scope="col">아티스트</th>
+                    <th id="th_fourth" scope="col">미리듣기</th>
+                    <th id="th_fifth" scope="col">삭제</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {% for track in tracks.Rainy %}
+                  <tr data-track_id="{{track.track_id}}" data-weather="Rainy">
+                    <td id="table_td">
+                      <img
+                        class="my_img"
+                        src="{{ track.cover_image }}"
+                        art="albumart"
+                      />
+                    </td>
+                    <td class="title" id="table_td">{{track.title}}</td>
+                    <td class="artist" id="table_td">{{track.artist}}</td>
+                    <td id="table_td">
+                      <audio controls>
+                        <source src="{{track.preview_url}}" type="audio/mpeg" />
+                      </audio>
+                    </td>
+                    <td id="table_td">
+                      <div class="btn-group">
+                        <button
+                          type="button"
+                          class="btn btn-danger dropdown-toggle"
+                          data-toggle="dropdown"
+                          aria-haspopup="true"
+                          aria-expanded="false"
+                        >
+                          삭제
+                        </button>
+                        <div class="dropdown-menu">
+                          <a class="dropdown-item">확인</a>
+                        </div>
+                      </div>
+                    </td>
+                  </tr>
+                  {% endfor %}
+                </tbody>
+              </table>
+            </div>
+
+            <! ---------------- 눈 탭 ---------------->
+            <div class="tab-pane fade" id="snowy">
+              <table class="table table-hover" id="search_table">
+                <thead>
+                  <tr>
+                    <th id="th_first" scope="col">앨범</th>
+                    <th id="th_second" scope="col">제목</th>
+                    <th id="th_third" scope="col">아티스트</th>
+                    <th id="th_fourth" scope="col">미리듣기</th>
+                    <th id="th_fifth" scope="col">삭제</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {% for track in tracks.Snowy %}
+                  <tr data-track_id="{{track.track_id}}" data-weather="Snowy">
+                    <td id="table_td">
+                      <img
+                        class="my_img"
+                        src="{{track.cover_image}}"
+                        art="albumart"
+                      />
+                    </td>
+                    <td class="title" id="table_td">{{track.title}}</td>
+                    <td class="artist" id="table_td">{{track.artist}}</td>
+                    <td id="table_td">
+                      <audio controls>
+                        <source src="{{track.preview_url}}" type="audio/mpeg" />
+                      </audio>
+                    </td>
+                    <td id="table_td">
+                      <div class="btn-group">
+                        <button
+                          type="button"
+                          class="btn btn-danger dropdown-toggle"
+                          data-toggle="dropdown"
+                          aria-haspopup="true"
+                          aria-expanded="false"
+                        >
+                          삭제
+                        </button>
+                        <div class="dropdown-menu">
+                          <a class="dropdown-item">확인</a>
+                        </div>
+                      </div>
+                    </td>
+                  </tr>
+                  {% endfor %}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </main>
+      <footer class="footer">
+        <div class="move_btn">
+          <a href="/about"
+            ><i class="fas fa-compass"></i><span> </span>About us</a
+          >
+        </div>
+        <div class="copyright">
+          <p>Copyright ©2022 '오늘의 코딩은 맑음'. All rights reserved.</p>
+        </div>
+      </footer>
+    </div>
+    <script
+      type="module"
+      src="{{url_for('static', filename='js/deleteBtn.js')}}"
+    ></script>
+  </body>
+</html>

@@ -1,0 +1,190 @@
+@font-face {
+            font-family: 'NEXON Lv1 Gothic OTF';
+            src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-04@2.1/NEXON Lv1 Gothic OTF.woff') format('woff');
+            font-weight: normal;
+            font-style: normal;
+        }
+@font-face {
+            font-family: 'GmarketSansMedium';
+            src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/GmarketSansMedium.woff') format('woff');
+            font-weight: normal;
+            font-style: normal;
+        }
+
+* {
+  font-family: 'Gothic A1', sans-serif;
+  /*font-family: 'NEXON Lv1 Gothic OTF';*/
+}
+
+/* ---------- header ---------- */
+.header {
+    padding: 2vh 0 1vh 0;
+    text-align: start;
+}
+
+/* 우축 상단 현재 위치, 기온, 날씨, 로그인 */
+/*.top {*/
+/*    display: grid;*/
+/*    grid-template-columns: 1fr 1fr;*/
+/*}*/
+.top {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}
+
+.top_left a {
+    justify-content: start;
+    text-decoration-line: none;
+    color: dimgrey;
+    font-size: 25px;
+}
+
+.top_left a:hover {
+    color: orange;
+}
+
+.top_corner {
+    display: flex;
+    justify-content: end;
+}
+
+.city_temp_wt {
+    color: dimgrey;
+}
+.header h1 {
+    color: dimgrey;
+    font-weight: 700;
+    margin: 4%;
+}
+
+.my_txt {
+    margin: 4%;
+}
+
+.my_txt span {
+    color: steelblue;
+    font-weight: 900;
+}
+
+#search_table {
+    table-layout: fixed;
+}
+
+.my_img {
+    width: 6em;
+}
+
+#th_first {
+    width: 8%;
+}
+
+#th_second {
+    width: 15%;
+}
+
+#th_third {
+    width: 15%;
+}
+
+#th_fourth {
+    width: 25%;
+}
+
+#th_fifth {
+    width: 7%;
+}
+
+#table_td {
+    vertical-align: middle;
+}
+
+/* --------------------footer--------------------- */
+.footer {
+    margin-top: 5%;
+}
+
+.move_btn {
+    text-align: center;
+}
+
+.move_btn a {
+    text-decoration-line: none;
+    color: dimgrey;
+}
+
+.move_btn a:hover {
+    color: orange;
+}
+
+.copyright {
+    margin-top: 1%;
+    color: grey;
+    font-size: 0.9em;
+    text-align: center;
+    padding-bottom: 1em;
+}
+
+/* --------------------- 반응형 ------------------------- */
+@media all and (max-width: 1024px) {
+    .my_img {
+        width: 5em;
+    }
+
+    #th_first {
+        width: 5%;
+    }
+
+    #th_second {
+        width: 8%;
+    }
+
+    #th_third {
+        width: 8%;
+    }
+
+    #th_fourth {
+        width: 12%;
+    }
+
+    #th_fifth {
+        width: 4%;
+    }
+
+    .mypage_player {
+        width: 170px;
+    }
+}
+
+@media all and (max-width: 992px) {
+    .my_img {
+        width: 4em;
+    }
+
+    #th_first {
+        width: 4%;
+    }
+
+    #th_second {
+        width: 6%;
+    }
+
+    #th_third {
+        width: 4%;
+    }
+
+    #th_fourth {
+        width: 8%;
+    }
+
+    #th_fifth {
+        width: 4%;
+    }
+
+    .mypage_player {
+        width: 150px;
+    }
+}
+
+@media all and (max-width: 768px) {
+
+}

@@ -1,0 +1,6 @@
+.env
+.cache
+.vscode
+__pycache__
+nohup.out
+/**/*.pem

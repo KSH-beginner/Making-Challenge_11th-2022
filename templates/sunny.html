@@ -1,0 +1,570 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+
+    <!-- Bootstrap CSS -->
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+      integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+      crossorigin="anonymous"
+    />
+
+    <!-- 구글 폰트 ---------------->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Gothic+A1:wght@400;600;700;800&family=Jua&family=Noto+Sans+KR:wght@400;500;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Local CSS -->
+    <link rel="stylesheet" href="../static/css/styles.css" />
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+      integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+      integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+      crossorigin="anonymous"
+    ></script>
+
+    <!-- bootstrap fas icon을 사용하기 위해 필요 -->
+    <script
+      src="https://kit.fontawesome.com/a73607bda8.js"
+      crossorigin="anonymous"
+    ></script>
+
+    <title>
+      {{ weather_to_show or current_weather or "main"}} - {{g.title}}
+    </title>
+
+    <style>
+      @font-face {
+        font-family: "NEXON Lv1 Gothic OTF";
+        src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-04@2.1/NEXON Lv1 Gothic OTF.woff")
+          format("woff");
+        font-weight: normal;
+        font-style: normal;
+      }
+      @font-face {
+        font-family: "GmarketSansMedium";
+        src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/GmarketSansMedium.woff")
+          format("woff");
+        font-weight: normal;
+        font-style: normal;
+      }
+      /*각 날씨 페이지마다 다른 이미지를 넣기 위해 css에서 옮김*/
+      .banner:after {
+        content: "";
+        background-image: url("../../static/images/{{ weather_to_show or current_weather }}.jpg");
+        background-position: center;
+        background-size: cover;
+        display: block;
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        opacity: 1;
+        z-index: -1;
+      }
+    </style>
+    <link rel="shortcut icon" href="../static/images/logo/favicon.png" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Mu:ther" />
+    <meta
+      property="og:description"
+      content="Mu:ther에서는 사용자의 위치에 따른 날씨를 파악하고, 오늘의 날씨에 어울리는 노래를 사용자에게 추천합니다."
+    />
+    <meta property="og:image" content="../static/images/og_img.png" />
+    <meta property="og:image:width" content="800" />
+    <meta property="og:image:height" content="400" />
+    <meta property="og:image:alt" content="Mu:ther 대표이미지" />
+    <meta property="og:url" content="사이트 URL" />
+  </head>
+
+  <body>
+    <div class="container">
+      <header>
+        <section class="header">
+          <div class="top_corner">
+            <div class="city_temp_wt">
+              <p>
+                {{current_city}} | {{current_temp or session.current_temp}} ℃ |
+                {{current_weather or session.current_weather}}
+              </p>
+            </div>
+            {% if session.username and session.username != "Guest" %}
+            <div class="btn_mypage">
+              <a href="/user/my-profile">{{session.username}}님의 페이지</a>
+            </div>
+            <div class="btn_logout">
+              <a href="/logout">로그아웃</a>
+            </div>
+            {% else %}
+            <div class="btn_login">
+              <a href="/login">로그인</a>
+            </div>
+            {% endif %}
+          </div>
+          <img
+            src="{{ url_for('static', filename='images/logo.png' )}}"
+            alt="logo"
+          />
+          <!-- Image and text -->
+          <nav class="navbar navbar-light">
+            <a id="nav_color" class="navbar-brand" href="/main?weather=Sunny">
+              <img
+                src="../static/images/picto_sunny.png"
+                width="30"
+                height="30"
+                class="d-inline-block align-top"
+                alt=""
+              />
+              {% if current_weather == "Sunny" %} Today {% else %} Sunny {%
+              endif %}
+            </a>
+            <a id="nav_color" class="navbar-brand" href="/main?weather=Cloudy">
+              <img
+                src="../static/images/picto_cloudy.png"
+                width="30"
+                height="30"
+                class="d-inline-block align-top"
+                alt=""
+              />
+              {% if current_weather == "Cloudy" %} Today {% else %} Cloudy {%
+              endif %}
+            </a>
+            <a id="nav_color" class="navbar-brand" href="/main?weather=Rainy">
+              <img
+                src="../static/images/picto_rainy.png"
+                width="30"
+                height="30"
+                class="d-inline-block align-top"
+                alt=""
+              />
+              {% if current_weather == "Rainy" %} Today {% else %} Rainy {%
+              endif %}
+            </a>
+            <a id="nav_color" class="navbar-brand" href="/main?weather=Snowy">
+              <img
+                src="../static/images/picto_snowy.png"
+                width="30"
+                height="30"
+                class="d-inline-block align-top"
+                alt=""
+              />
+              {% if current_weather == "Snowy" %} Today {% else %} Snowy {%
+              endif %}
+            </a>
+          </nav>
+        </section>
+      </header>
+      <main>
+        <section class="banner">
+          <div>
+            <h2>오늘의 날씨는 <span>#{{current_weather}}</span>입니다.</h2>
+            <p>
+              #{{weather_to_show or current_weather}}에 어울리는 노래를
+              추천합니다!
+            </p>
+          </div>
+        </section>
+        <section>
+          <div class="chart_title">
+            <h3>
+              <span>#{{weather_to_show or current_weather}}</span>에 어울리는
+              노래 순위
+            </h3>
+            <p>
+              여러분의 선택으로 순위가 결정됩니다. 날씨 아이콘을 클릭해 보세요.
+            </p>
+          </div>
+          <div class="chart">
+            <div class="chart_first">
+              {% for song in songs_rank[0:5] %}
+              <div class="chart_column" data-track_id="{{song.track_id}}">
+                <div class="chart_list">
+                  <div class="rank">{{ loop.index }}</div>
+                  <div>
+                    <img src="{{song.cover_image}}" art="albumart" />
+                  </div>
+                  <div class="chart_list_detail">
+                    <div class="artist">{{song.artist}}</div>
+                    <div class="song_title">{{song.title}}</div>
+                  </div>
+                  <div class="player">
+                    <button
+                      class="play-pause-button fa fa-play-circle"
+                      style="font-size: 25px"
+                      data-url="{{song.preview_url}}"
+                    ></button>
+                  </div>
+                  <div class="weather_icon">
+                    <div class="weather_cloumn">
+                      <button
+                        type="button"
+                        value="Sunny"
+                        class="weather-likeBtn"
+                      >
+                        <img
+                          src="../static/images/picto_sunny.png"
+                          alt="sunny"
+                        />
+                      </button>
+                      {% if song.likes %}
+                      <p class="weather_cloumn_txt">{{ song.likes.Sunny }}</p>
+                      {% else %}
+                      <p class="weather_cloumn_txt">0</p>
+                      {% endif %}
+                    </div>
+                    <div class="weather_cloumn">
+                      <button
+                        type="button"
+                        value="Cloudy"
+                        class="weather-likeBtn"
+                      >
+                        <img
+                          src="../static/images/picto_cloudy.png"
+                          alt="cloudy"
+                        />
+                      </button>
+                      {% if song.likes %}
+                      <p class="weather_cloumn_txt">{{ song.likes.Cloudy }}</p>
+                      {% else %}
+                      <p class="weather_cloumn_txt">0</p>
+                      {% endif %}
+                    </div>
+                    <div class="weather_cloumn">
+                      <button
+                        type="button"
+                        value="Rainy"
+                        class="weather-likeBtn"
+                      >
+                        <img
+                          src="../static/images/picto_rainy.png"
+                          alt="rainy"
+                        />
+                      </button>
+                      {% if song.likes %}
+                      <p class="weather_cloumn_txt">{{ song.likes.Rainy }}</p>
+                      {% else %}
+                      <p class="weather_cloumn_txt">0</p>
+                      {% endif %}
+                    </div>
+                    <div class="weather_cloumn">
+                      <button
+                        type="button"
+                        value="Snowy"
+                        class="weather-likeBtn"
+                      >
+                        <img
+                          src="../static/images/picto_snowy.png"
+                          alt="snowy"
+                        />
+                      </button>
+                      {% if song.likes %}
+                      <p class="weather_cloumn_txt">{{ song.likes.Snowy }}</p>
+                      {% else %}
+                      <p class="weather_cloumn_txt">0</p>
+                      {% endif %}
+                    </div>
+                  </div>
+                </div>
+              </div>
+              {% endfor %}
+            </div>
+            <div class="chart_second">
+              {% for song in songs_rank[5:] %}
+              <div class="chart_column" data-track_id="{{song.track_id}}">
+                <div class="chart_list">
+                  <div class="rank">{{ 5 + loop.index }}</div>
+                  <div>
+                    <img src="{{song.cover_image}}" art="albumart" />
+                  </div>
+                  <div class="chart_list_detail">
+                    <div class="artist">{{song.artist}}</div>
+                    <div class="song_title">{{song.title}}</div>
+                  </div>
+                  <div class="player">
+                    <button
+                      class="play-pause-button fa fa-play-circle"
+                      style="font-size: 25px"
+                      data-url="{{song.preview_url}}"
+                    ></button>
+                  </div>
+                  <div class="weather_icon">
+                    <div class="weather_cloumn">
+                      <button
+                        type="button"
+                        value="Sunny"
+                        class="weather-likeBtn"
+                      >
+                        <img
+                          src="../static/images/picto_sunny.png"
+                          alt="sunny"
+                        />
+                      </button>
+                      {% if song.likes %}
+                      <p class="weather_cloumn_txt">{{ song.likes.Sunny }}</p>
+                      {% else %}
+                      <p class="weather_cloumn_txt">0</p>
+                      {% endif %}
+                    </div>
+                    <div class="weather_cloumn">
+                      <button
+                        type="button"
+                        value="Cloudy"
+                        class="weather-likeBtn"
+                      >
+                        <img
+                          src="../static/images/picto_cloudy.png"
+                          alt="cloudy"
+                        />
+                      </button>
+                      {% if song.likes %}
+                      <p class="weather_cloumn_txt">{{ song.likes.Cloudy }}</p>
+                      {% else %}
+                      <p class="weather_cloumn_txt">0</p>
+                      {% endif %}
+                    </div>
+                    <div class="weather_cloumn">
+                      <button
+                        type="button"
+                        value="Rainy"
+                        class="weather-likeBtn"
+                      >
+                        <img
+                          src="../static/images/picto_rainy.png"
+                          alt="rainy"
+                        />
+                      </button>
+                      {% if song.likes %}
+                      <p class="weather_cloumn_txt">{{ song.likes.Rainy }}</p>
+                      {% else %}
+                      <p class="weather_cloumn_txt">0</p>
+                      {% endif %}
+                    </div>
+                    <div class="weather_cloumn">
+                      <button
+                        type="button"
+                        value="Snowy"
+                        class="weather-likeBtn"
+                      >
+                        <img
+                          src="../static/images/picto_snowy.png"
+                          alt="snowy"
+                        />
+                      </button>
+                      {% if song.likes %}
+                      <p class="weather_cloumn_txt">{{ song.likes.Snowy }}</p>
+                      {% else %}
+                      <p class="weather_cloumn_txt">0</p>
+                      {% endif %}
+                    </div>
+                  </div>
+                </div>
+              </div>
+              {% endfor %}
+            </div>
+          </div>
+          <div class="search_bar">
+            <div class="input-group mb-3">
+              <input
+                type="text"
+                class="form-control"
+                placeholder="노래 / 아티스트 입력"
+                id="search_input"
+                aria-label="Recipient's username"
+                aria-describedby="button-addon2"
+              />
+              <div class="input-group-append">
+                <button
+                  class="btn btn-outline-secondary"
+                  type="button"
+                  id="button-search"
+                >
+                  Search
+                </button>
+              </div>
+            </div>
+          </div>
+          <div class="random_title">
+            <h3>
+              <span>#{{weather_to_show or current_weather}}</span>에 어울리는
+              노래 추천
+            </h3>
+            <p>
+              추천 노래들을 들어보시고 날씨에 어울리는 아이콘을 클릭해 보세요.
+              순위에 반영됩니다.
+            </p>
+          </div>
+          <div class="random">
+            {% for song in random_songs %}
+            <div
+              class="random_list"
+              data-track_index="{{loop.index}}"
+              data-track_id="{{song.track_id}}"
+            >
+              <div class="empty_class">
+                <img
+                  type="button"
+                  data-toggle="modal"
+                  data-target="#random_modal"
+                  src="{{song.cover_image}}"
+                  art="albumart"
+                  class="random_albumart"
+                />
+              </div>
+              <div class="random_list_detail">
+                <div class="random_song_title">{{song.title}}</div>
+                <div class="random_artist">{{song.artist}}</div>
+              </div>
+            </div>
+            {% endfor %}
+          </div>
+        </section>
+      </main>
+
+      <!------------------------------Modal 부분 ----------------------------->
+      <div
+        class="modal fade"
+        id="random_modal"
+        tabindex="-1"
+        role="dialog"
+        aria-labelledby="exampleModalLabel"
+        aria-hidden="true"
+      >
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel"></h5>
+              <button
+                type="button"
+                class="close"
+                data-dismiss="modal"
+                aria-label="Close"
+              >
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <img src="" art="albumart" class="modal-albumart" />
+            </div>
+            <div class="modal_song_title"></div>
+            <div class="modal-footer">
+              <div class="weather_icon" id="modal_wt_icon">
+                <button type="button" value="Sunny" class="weather-likeBtn">
+                  <img src="../static/images/picto_sunny.png" alt="sunny" />
+                </button>
+                <button type="button" value="Cloudy" class="weather-likeBtn">
+                  <img src="../static/images/picto_cloudy.png" alt="cloudy" />
+                </button>
+                <button type="button" value="Rainy" class="weather-likeBtn">
+                  <img src="../static/images/picto_rainy.png" alt="rainy" />
+                </button>
+                <button type="button" value="Snowy" class="weather-likeBtn">
+                  <img src="../static/images/picto_snowy.png" alt="snowy" />
+                </button>
+              </div>
+              <audio controls id="modal_player" src=""></audio>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer class="footer">
+        <div class="move_btn">
+          <a href="/about"
+            ><i class="fas fa-compass"></i><span> </span>About us</a
+          >
+        </div>
+        <div class="copyright">
+          <p>Copyright ©2022 '오늘의 코딩은 맑음'. All rights reserved.</p>
+        </div>
+      </footer>
+    </div>
+
+    <script>
+      const playPauseButtons = document.querySelectorAll(".play-pause-button");
+      let audio = new Audio();
+      for (let button of playPauseButtons) {
+        button.addEventListener("click", (event) => {
+          let btn = event.target;
+          if (audio) {
+            audio.pause();
+          }
+          audio = new Audio(btn.dataset.url);
+          audio.volume = 0.5;
+          if ([...btn.classList].some((x) => x === "fa-play-circle")) {
+            btn.classList.remove("fa-play-circle");
+            btn.classList.add("fa-pause-circle");
+            audio.play();
+          } else {
+            btn.classList.add("fa-play-circle");
+            btn.classList.remove("fa-pause-circle");
+          }
+        });
+      }
+      const search_input = document.querySelector("#search_input");
+      search_input.addEventListener("keydown", (e) => {
+        if (e.key === "Enter") {
+          if (search_input.value.length === 0) {
+            alert("검색어를 입력해주세요.");
+          } else {
+            query = search_input.value;
+            window.location.href = `/main/search?query=${query}`;
+          }
+        }
+      });
+      const search_btn = document.querySelector("#button-search");
+      search_btn.addEventListener("click", (e) => {
+        e.preventDefault();
+        if (search_input.value.length === 0) {
+          alert("검색어를 입력해주세요.");
+        } else {
+          query = search_input.value;
+          window.location.href = `/main/search?query=${query}`;
+        }
+      });
+      const random_tracks = {{random_songs|tojson}};
+      const random_lists = document.querySelectorAll(".random_list");
+      [...random_lists].map((list) =>
+        list.addEventListener("click", (event) => openModal(event))
+      );
+      function openModal(event) {
+        let { target } = event;
+        while (target.className !== "random_list") {
+          target = target.parentNode;
+        }
+        const track_id = target.dataset.track_id;
+        const track_idx = target.dataset.track_index;
+        const track = random_tracks[track_idx - 1];
+        const modal_content = document.querySelector(".modal-content");
+        modal_content.dataset.track_id = track_id;
+        let modal_title = document.querySelector(".modal-title");
+        modal_title.innerText = track.artist;
+        let modal_song_title = document.querySelector(".modal_song_title");
+        modal_song_title.innerText = track.title;
+        let modal_albumart = document.querySelector(".modal-albumart");
+        modal_albumart.src = track.cover_image;
+        let modal_preview = document.querySelector("audio");
+        modal_preview.src = track.preview_url;
+      }
+    </script>
+    <script src="{{url_for('static', filename='js/likeBtn.js')}}"></script>
+  </body>
+</html>
