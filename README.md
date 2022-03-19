@@ -19,6 +19,7 @@
 
 * Spotify API 불러오기 & OpenWheatherMap API 불러와서 데이터 가공 및 분류하는 초반 작업
 * 좋아요 API & DB 초반 설계 (Ajax & Flask & Javascript & MongoDB 사용)
+* 랜딩페이지 랜덤곡 보여주기 (Spotify API 내장 함수 사용)
 * 메인페이지 하단 부분 랜덤곡 날씨별로 10곡 보여주기 (Spotify API 내장 함수 사용)
 
 <br>
